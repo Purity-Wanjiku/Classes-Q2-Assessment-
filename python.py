@@ -85,3 +85,40 @@ class Translator:
 translator1 = Translator("Kiswahili")
 print("My language is", translator1.translator_lang)
 
+
+# question2
+
+class Recipe:
+ def __init__(self,ingredients, preparation_time,cooking_method,nutritional_info):
+     self.ingredients = ingredients
+     self.preparation_time = preparation_time
+     self.cooking_method = cooking_method
+     self.nutritional_info = nutritional_info
+class KenyanRecipe(Recipe):
+ def __init__(self,recipe_name,serving,ingredients,preparation_time,cooking_method,nutritional_info):
+        super().__init__(ingredients,preparation_time,cooking_method,nutritional_info)
+        self.recipe_name = recipe_name
+        self.serving = serving
+ def portions(self,preferred_serving):
+    if preferred_serving > self.serving:
+        portion_amount = round(preferred_serving / self.serving)
+        return f"The portion of ingredients can be increased {portion_amount} times "
+    elif preferred_serving < self.serving:
+        portion_amount = round(self.serving / preferred_serving)
+        return f"The portion of ingredients can be decreased {portion_amount} times"
+    else:
+        return f"The portion of food serves {self.serving}"
+recipe1 = KenyanRecipe("githeri", 6, "beans, nuts and maize", "30 mins", "stew", "well balanced meal")
+print(recipe1.portions(6))
+class RwandaRecipe(Recipe):
+ def __init__(self,recipe_name,ingredients,preparation_time,cooking_method,nutritional_info):
+        super().__init__(ingredients, preparation_time,cooking_method,nutritional_info)
+        self.recipe_name = recipe_name
+ def allergic(self,allergen):
+     if allergen in self.ingredients:
+        return f"Beware! {allergen} are in {self.recipe_name} dish"
+     else:
+        return f"Relax! {allergen} is not in {self.recipe_name} dish"
+recipe2 = RwandaRecipe("Isombe",["beans","meat","onions"],"30 mins","boil and fry","kills children with no pain")
+print(recipe2.allergic("yams"))
+
