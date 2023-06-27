@@ -209,24 +209,4 @@ fun main() {
 // These classes might relate to each other through inheritance.
 
 
-open class Species(
-    val name: String,
-    val diet: String,
-    val lifeSpan: Int,
-    val migrationPatterns: String
-) {
-    val species = mutableListOf<String>()
-    fun checkSpecies(specieA: String, specieB: String): List<String> {
-        if (diet == "flesh" && lifeSpan >= 30) {
-            species.add(specieA)
-            println("$specieA is a carnivore with a lifespan of at least 30 years.")
-        } else if (diet == "grass" && lifeSpan < 30) {
-            species.add(specieB)
-            println("$specieB is a herbivore with a lifespan of less than 30 years.")
-        }
-        return species
-    }
-}
-
-
    
