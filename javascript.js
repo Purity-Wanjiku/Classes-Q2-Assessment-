@@ -85,5 +85,60 @@ class Story {
     "English"
   );
    console.log("My language is", translator.translator_lang);
-  console.log(translator.translate());
+console.log(translator.translate());
+  
+
+// Question2
+
+class Recipe {
+  constructor(ingredients, preparationTime, cookingMethod, nutritionalInfo) {
+      this.ingredients = ingredients;
+      this.preparationTime = preparationTime;
+      this.cookingMethod = cookingMethod;
+      this.nutritionalInfo = nutritionalInfo;
+  }
+}
+
+class KenyanRecipe extends Recipe {
+  constructor(recipeName, serving, ingredients, preparationTime, cookingMethod, nutritionalInfo) {
+      super(ingredients, preparationTime, cookingMethod, nutritionalInfo);
+      this.recipeName = recipeName;
+      this.serving = serving;
+  }
+
+  portions(preferredServing) {
+      if (preferredServing > this.serving) {
+          const portionAmount = Math.round(preferredServing / this.serving);
+          return `The portion of ingredients can be increased ${portionAmount} times`;
+      } else if (preferredServing < this.serving) {
+          const portionAmount = Math.round(this.serving / preferredServing);
+          return `The portion of ingredients can be decreased ${portionAmount} times`;
+      } else {
+          return `The portion of food serves ${this.serving}`;
+      }
+  }
+}
+
+class RwandaRecipe extends Recipe {
+  constructor(recipeName, ingredients, preparationTime, cookingMethod, nutritionalInfo) {
+      super(ingredients, preparationTime, cookingMethod, nutritionalInfo);
+      this.recipeName = recipeName;
+  }
+
+  allergic(allergen) {
+      if (this.ingredients.includes(allergen)) {
+          return `Beware! ${allergen} are in ${this.recipeName} dish`;
+      } else {
+          return `Relax! ${allergen} is not in ${this.recipeName} dish`;
+      }
+  }
+}
+
+const recipe1 = new KenyanRecipe("githeri", 6, "beans, nuts and maize", "30 mins", "stew", "well balanced meal");
+console.log(recipe1.portions(6));
+
+const recipe2 = new RwandaRecipe("Isombe", ["beans", "meat", "onions"], "30 mins", "boil and fry", "kills children with no pain");
+console.log(recipe2.allergic("yams"));
+console.log(recipe2.allergic("beans"));
+
  
