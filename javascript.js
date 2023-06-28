@@ -141,4 +141,60 @@ const recipe2 = new RwandaRecipe("Isombe", ["beans", "meat", "onions"], "30 mins
 console.log(recipe2.allergic("yams"));
 console.log(recipe2.allergic("beans"));
 
+
+// question3
+
+class Species {
+    constructor(name, diet, lifespan, month) {
+        this.name = name;
+        this.diet = diet;
+        this.lifespan = lifespan;
+        this.month = month;
+    }
+
+    track() {
+        if (this.month <= 0) {
+            return 'Month not available';
+        } else if (this.month <= 6) {
+            const migrationPattern = 'South to East';
+            return `${this.name}\nDiet: ${this.diet}\nLifespan: ${this.lifespan}\nMigration pattern: ${migrationPattern}`;
+        } else if (this.month >= 6 && this.month <= 12) {
+            const migrationPattern = 'North to West';
+            return `${this.name}\nDiet: ${this.diet}\nLifespan: ${this.lifespan}\nMigration pattern: ${migrationPattern}`;
+        }
+        return 'Month is in the calendar';
+    }
+}
+
+class Predator extends Species {
+    constructor(name, diet, lifespan, month, prey) {
+        super(name, diet, lifespan, month);
+        this.prey = prey;
+    }
+
+    track() {
+        const track = super.track();
+        return `${track}\nPrey: ${this.prey}`;
+    }
+}
+
+class Prey extends Species {
+    constructor(name, diet, lifespan, month, predator) {
+        super(name, diet, lifespan, month);
+        this.predator = predator;
+    }
+
+    track() {
+        const track = super.track();
+        return `${track}\nPredator: ${this.predator}`;
+    }
+}
+
+const animalOne = new Predator('Lion', 'Herbivores', '30 years', 13, ['Antelopes', 'Gazelles', 'Zebras']);
+console.log(animalOne.track());
+
+const animalTwo = new Prey('Zebra', 'Grass', '8 years', 7, ['Cheetah', 'Lion', 'Black Panther']);
+console.log(animalTwo.track());
+
+
  
