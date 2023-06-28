@@ -122,3 +122,41 @@ class RwandaRecipe(Recipe):
 recipe2 = RwandaRecipe("Isombe",["beans","meat","onions"],"30 mins","boil and fry","kills children with no pain")
 print(recipe2.allergic("yams"))
 
+
+# question3
+
+class Species:
+    def __init__(self, name, diet, lifespan, month):
+        self.name = name
+        self.diet = diet
+        self.lifespan = lifespan
+        self.month = month
+    def track(self):
+        if self.month<=0:
+            return 'Month not available'
+        elif self.month<=6:
+            migration_pattern = 'South to East'
+            return f"{self.name}\n Diet:{self.diet}\n Lifespan:{self.lifespan}\n Prey:{self.prey}\n Migration pattern:{migration_pattern}"
+        elif self.month>=6 and self.month<=12:
+            migration_pattern = 'North to West'
+            return f"{self.name}\n Diet:{self.diet}\n Lifespan:{self.lifespan}\n Migration pattern:{migration_pattern}"
+        return 'Month is in the  calendar'
+class Predator(Species):
+    def __init__(self, name, diet, lifespan, month, prey):
+        super().__init__(name, diet, lifespan, month)
+        self.prey = prey
+    def track_predator(self):
+        track = super().track()
+        return f"{track}\n Prey:{self.prey}"
+class Prey(Species):
+    def __init__(self, name, diet, lifespan, month, predator):
+        super().__init__(name, diet, lifespan, month)
+        self.predator = predator
+    def track_prey(self):
+        track = super().track()
+        return f"{track}\n Predator:{self.predator}"
+animal_one = Predator('Lion', 'Herbivores', '30yrs', 13, ['Antelopes', 'Gazelles', 'Zebras'])
+print(animal_one.track_predator())
+animal_two = Prey('Zebra', 'Grass', '8yrs', 7, ['Cheetah', 'Lion', 'Black Panther'])
+print(animal_two.track_prey())
+
