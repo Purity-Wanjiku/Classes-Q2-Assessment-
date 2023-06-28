@@ -43,44 +43,70 @@ fun main() {
     println("My language is ${translator.translatorLang}")
     println(translator.translate())
 
-    val recipe1 = MoroccanRecipe("githeri", 6, "beans, nuts and maize", "30 mins", "stew", "well balanced meal")
-    println(recipe 1.portions(6))
- 
- 
-    val recipe2 = NigerianRecipe("Isombe", "beans, meat, onions", "30 mins", "boil and fry", "kills children with no pain")
-    println(recipe2.allergic("yams"))
-    
-    val animals1 = Species("buffalo", "flesh", 45, "Run")
-    val animals2 = Species("buffalo", "grass", 15, "Run")
-    println(animals1.checkSpecies("Carnivore", "Herbivore"))
-    println(animals2.checkSpecies("Carnivore", "Herbivore"))
-
-    open class Predator(
-        name: String,
-        val appearance: String,
-        diet: String,
-        lifeSpan: Int
-    ) : Species(name, diet, lifeSpan, "") {
-        val predators = mutableListOf<String>()
-        fun namingPredators(): List<String> {
-            predators.add(name)
-            return predators
+    val recipe = Recipe(
+        "Flour, eggs, milk, sugar",
+        "15 minutes",
+        "Pan frying",
+        "Calories: 200 per serving"
+    )
+    val recipeName = "Pancakes"
+    val serving = 4
+    val portionsMessage = when {
+        serving > 0 -> {
+            val preferredServing = 6
+            val portionAmount = preferredServing / serving
+            "The portion of ingredients can be increased $portionAmount times"
+        }
+        serving < 0 -> {
+            val portionAmount = serving / 6
+            "The portion of ingredients can be decreased $portionAmount times"
+        }
+        else -> {
+            "The portion of food serves $serving"
         }
     }
 
-    val predator1 = object : Predator("Antelope", "slimy", "meat", 12) {}
-    val predator2 = object : Predator("Buffalo", "slimy", "meat", 12) {}
-    println(predator1.namingPredators())
-    println(predator2.namingPredators())
+    val nigerianRecipe = NigerianRecipe(
+        "Jollof Rice",
+        "Rice, tomatoes, onions, peppers, spices",
+        "45 minutes",
+        "Stovetop cooking",
+        "Calories: 300 per serving"
+    )
+    val allergen = "Peppers"
+    val allergicMessage = if (allergen in nigerianRecipe.ingredients) {
+        "Beware! $allergen are in ${nigerianRecipe.recipeName} dish"
+    } else {
+        "Relax! $allergen is not in ${nigerianRecipe.recipeName} dish"
+    }
 
-    open class Prey(
-        specieName: String,
-        diet: String,
-        val defenseMechanism: String,
-        lifeSpan: Int,
-        migrationPatterns: String
-    ) : Species(specieName, diet, lifeSpan, migrationPatterns)
+    println("Recipe:")
+    println("Ingredients: ${recipe.ingredients}")
+    println("Preparation Time: ${recipe.preparationTime}")
+    println("Cooking Method: ${recipe.cookingMethod}")
+    println("Nutritional Info: ${recipe.nutritionalInfo}")
+    println()
+    println("Portions:")
+    println(portionsMessage)
+    println()
+    println("Nigerian Recipe:")
+    println("Ingredients: ${nigerianRecipe.ingredients}")
+    println("Preparation Time: ${nigerianRecipe.preparationTime}")
+    println("Cooking Method: ${nigerianRecipe.cookingMethod}")
+    println("Nutritional Info: ${nigerianRecipe.nutritionalInfo}")
+    println("Allergen Check:")
+    println(allergicMessage)
+    
+    
+    
 
+
+
+    val animalOne = Predator("Lion", "Herbivores", 30, 13, listOf("Antelopes", "Gazelles", "Zebras"))
+    println(animalOne.track())
+
+    val animalTwo = Prey("Zebra", "Grass", 8, 7, listOf("Cheetah", "Lion", "Black Panther"))
+    println(animalTwo.track())
 
  }
 
@@ -149,57 +175,31 @@ fun main() {
 // `EthiopianRecipe`, `NigerianRecipe`), each with their own unique properties and
 // Methods.
 
- open class Recipe(
-        val ingredients: String,
-        val preparationTime: String,
-        val cookingMethod: String,
-        val nutritionalInfo: String
- )
- 
- 
- class Recipe(
-        val recipeName: String,
-        val serving: Int,
-        ingredients: String,
-        preparationTime: String,
-        cookingMethod: String,
-        nutritionalInfo: String
- ) : Recipe(ingredients, preparationTime, cookingMethod, nutritionalInfo) {
-    fun portions(preferredServing: Int): String {
-        return when {
-            preferredServing > serving -> {
-                val portionAmount = (preferredServing / serving)
-                "The portion of ingredients can be increased $portionAmount times"
-            }
-                    preferredServing < serving -> {
-                val portionAmount = (serving / preferredServing)
-                "The portion of ingredients can be decreased $portionAmount times"
-            }
-            else ->{
-                "The portion of food serves $serving"
-            }
- 
- 
-        }
-    }
- }
- 
- class NigerianRecipe(
-        val recipeName: String,
-        ingredients: String,
-        preparationTime: String,
-        cookingMethod: String,
-        nutritionalInfo: String
- ) : Recipe(ingredients, preparationTime, cookingMethod, nutritionalInfo) {
+open class Recipe(
+    val ingredients: String,
+    val preparationTime: String,
+    val cookingMethod: String,
+    val nutritionalInfo: String
+)
+
+class NigerianRecipe(
+    val recipeName: String,
+    ingredients: String,
+    preparationTime: String,
+    cookingMethod: String,
+    nutritionalInfo: String
+) : Recipe(ingredients, preparationTime, cookingMethod, nutritionalInfo) {
     fun allergic(allergen: String): String {
         return if (allergen in ingredients) {
-            "Beware! $allergen are in $recipeName dish"
+            "Beware! $allergen is in $recipeName dish"
         } else {
             "Relax! $allergen is not in $recipeName dish"
         }
     }
- }
- 
+}
+
+
+
 
 //  3. **Wildlife Preservation:** You're a wildlife conservationist working on a
 // program to track different species in a national park. Each species has its own
@@ -208,5 +208,37 @@ fun main() {
 // create classes to model `Species`, `Predator`, `Prey`, etc., and think about how
 // These classes might relate to each other through inheritance.
 
+open class Species(val name: String, val diet: String, val lifespan: Int, val month: Int) {
+    open fun track(): String {
+        return when {
+            month <= 0 -> "Month not available"
+            month <= 6 -> {
+                val migrationPattern = "South to East"
+                "$name\nDiet: $diet\nLifespan: $lifespan years\nMigration pattern: $migrationPattern"
+            }
+            month in 7..12 -> {
+                val migrationPattern = "North to West"
+                "$name\nDiet: $diet\nLifespan: $lifespan years\nMigration pattern: $migrationPattern"
+            }
+            else -> "Month is not in the calendar"
+        }
+    }
+}
+
+class Predator(name: String, diet: String, lifespan: Int, month: Int, val prey: List<String>) :
+    Species(name, diet, lifespan, month) {
+    override fun track(): String {
+        val baseTrack = super.track()
+        return "$baseTrack\nPrey: $prey"
+    }
+}
+
+class Prey(name: String, diet: String, lifespan: Int, month: Int, val predator: List<String>) :
+    Species(name, diet, lifespan, month) {
+    override fun track(): String {
+        val baseTrack = super.track()
+        return "$baseTrack\nPredator: $predator"
+    }
+}
 
    
