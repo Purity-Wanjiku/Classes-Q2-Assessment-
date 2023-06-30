@@ -43,22 +43,22 @@ fun main() {
     println("My language is ${translator.translatorLang}")
     println(translator.translate())
 
-    val recipe = Recipe(
+    var recipe = Recipe(
         "Flour, eggs, milk, sugar",
         "15 minutes",
         "Pan frying",
         "Calories: 200 per serving"
     )
-    val recipeName = "Pancakes"
-    val serving = 4
-    val portionsMessage = when {
+    var recipeName = "Pancakes"
+    var serving = 4
+    var portionsMessage = when {
         serving > 0 -> {
-            val preferredServing = 6
-            val portionAmount = preferredServing / serving
+            var preferredServing = 6
+            var portionAmount = preferredServing / serving
             "The portion of ingredients can be increased $portionAmount times"
         }
         serving < 0 -> {
-            val portionAmount = serving / 6
+            var portionAmount = serving / 6
             "The portion of ingredients can be decreased $portionAmount times"
         }
         else -> {
@@ -66,15 +66,15 @@ fun main() {
         }
     }
 
-    val nigerianRecipe = NigerianRecipe(
+    var nigerianRecipe = NigerianRecipe(
         "Jollof Rice",
         "Rice, tomatoes, onions, peppers, spices",
         "45 minutes",
         "Stovetop cooking",
         "Calories: 300 per serving"
     )
-    val allergen = "Peppers"
-    val allergicMessage = if (allergen in nigerianRecipe.ingredients) {
+    var allergen = "Peppers"
+    var allergicMessage = if (allergen in nigerianRecipe.ingredients) {
         "Beware! $allergen are in ${nigerianRecipe.recipeName} dish"
     } else {
         "Relax! $allergen is not in ${nigerianRecipe.recipeName} dish"
@@ -97,16 +97,37 @@ fun main() {
     println("Allergen Check:")
     println(allergicMessage)
     
-    
-    
+    val product1 = Product("TeddyBear", 1000.0, 1)
+    val product2 = Product("AnkaraBag", 2000.0, 2)
+
+    println(product1.calculateTotalValue()) 
+        println(product2.calculateTotalValue()) 
 
 
 
-    val animalOne = Predator("Lion", "Herbivores", 30, 13, listOf("Antelopes", "Gazelles", "Zebras"))
+
+    var animalOne = Predator("Lion", "Herbivores", 30, 13, listOf("Antelopes", "Gazelles", "Zebras"))
     println(animalOne.track())
 
-    val animalTwo = Prey("Zebra", "Grass", 8, 7, listOf("Cheetah", "Lion", "Black Panther"))
+    var animalTwo = Prey("Zebra", "Grass", 8, 7, listOf("Cheetah", "Lion", "Black Panther"))
     println(animalTwo.track())
+
+
+    val artist1 = Artist("Bien", "Kenya", "Sing")
+    val artist2 = Artist("Savara", "Kenya", "sing")
+    val artist3 = Artist("fancy fingers", "Kenya", "guitar")
+
+    val performance1 = Performance(artist1, Date(), Date())
+    val performance2 = Performance(artist2, Date(), Date())
+    val performance3 = Performance(artist3, Date(), Date())
+
+    val stage1 = Stage("Main Stage", 1000)
+
+    stage1.addPerformance(performance1)
+    stage1.addPerformance(performance2)
+    stage1.addPerformance(performance3)
+
+    println(stage1)
 
  }
 
@@ -152,7 +173,7 @@ fun main() {
  ) : Story(content, 0, 0, "", title, language) {
  
  
- val recordings = mutableListOf<String>()
+ var recordings = mutableListOf<String>()
  
  
  fun recordingsTranslated():List<String>{
@@ -176,14 +197,14 @@ fun main() {
 // Methods.
 
 open class Recipe(
-    val ingredients: String,
-    val preparationTime: String,
-    val cookingMethod: String,
-    val nutritionalInfo: String
+    var ingredients: String,
+    var preparationTime: String,
+    var cookingMethod: String,
+    var nutritionalInfo: String
 )
 
 class NigerianRecipe(
-    val recipeName: String,
+    var recipeName: String,
     ingredients: String,
     preparationTime: String,
     cookingMethod: String,
@@ -208,16 +229,16 @@ class NigerianRecipe(
 // create classes to model `Species`, `Predator`, `Prey`, etc., and think about how
 // These classes might relate to each other through inheritance.
 
-open class Species(val name: String, val diet: String, val lifespan: Int, val month: Int) {
+open class Species(var name: String, var diet: String, var lifespan: Int, var month: Int) {
     open fun track(): String {
         return when {
             month <= 0 -> "Month not available"
             month <= 6 -> {
-                val migrationPattern = "South to East"
+                var migrationPattern = "South to East"
                 "$name\nDiet: $diet\nLifespan: $lifespan years\nMigration pattern: $migrationPattern"
             }
             month in 7..12 -> {
-                val migrationPattern = "North to West"
+                var migrationPattern = "North to West"
                 "$name\nDiet: $diet\nLifespan: $lifespan years\nMigration pattern: $migrationPattern"
             }
             else -> "Month is not in the calendar"
@@ -225,20 +246,72 @@ open class Species(val name: String, val diet: String, val lifespan: Int, val mo
     }
 }
 
-class Predator(name: String, diet: String, lifespan: Int, month: Int, val prey: List<String>) :
+class Predator(name: String, diet: String, lifespan: Int, month: Int, var prey: List<String>) :
     Species(name, diet, lifespan, month) {
     override fun track(): String {
-        val baseTrack = super.track()
+        var baseTrack = super.track()
         return "$baseTrack\nPrey: $prey"
     }
 }
 
-class Prey(name: String, diet: String, lifespan: Int, month: Int, val predator: List<String>) :
+class Prey(name: String, diet: String, lifespan: Int, month: Int, var predator: List<String>) :
     Species(name, diet, lifespan, month) {
     override fun track(): String {
-        val baseTrack = super.track()
+        var baseTrack = super.track()
         return "$baseTrack\nPredator: $predator"
     }
 }
-
    
+
+
+// 4. **African Music Festival:** You're in charge of organising a Pan-African music
+// festival. Many artists from different countries, each with their own musical style
+// and instruments are scheduled to perform. You need to write a program to
+// manage the festivar lineup, schedule, and stage arrangements. Think about how
+// you might model the `Artist`, `Performance`, and `Stage` classes, and consider
+// how you might use inheritance if there are different types of performances or
+// Stages.
+
+import java.util.Date
+
+class Artist(val name: String, val country: String, val specialization: String)
+
+class Performance(val artist: Artist, val startTime: Date, val endTime: Date)
+
+class Stage(val name: String, val capacity: Int) {
+    private val performances = mutableListOf<Performance>()
+
+    fun addPerformance(performance: Performance) {
+        performances.add(performance)
+    }
+
+    override fun toString(): String {
+        val stageInfo = "Stage: $name\nCapacity: $capacity\nPerformances:\n"
+        val performanceInfo = performances.joinToString("\n") {
+            "Artist: ${it.artist.name}, Start Time: ${it.startTime}, End Time: ${it.endTime}"
+        }
+        return stageInfo + performanceInfo
+    }
+}
+
+
+
+// 5. Create a class called Product with attributes for name, price, and quantity.
+// Implement a method to calculate the total varue of the product (price * quantity).
+// Create multiple objects of the Product class and calculate their total varues.
+
+class Product(val name: String, val price: Double, val quantity: Int) {
+
+    fun calculateTotalValue(): Double {
+        return price * quantity
+    }
+}
+
+
+
+
+
+
+
+
+
