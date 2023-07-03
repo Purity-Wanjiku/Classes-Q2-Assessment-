@@ -257,6 +257,26 @@ console.log(stage.stageManagement());
 console.log(stage.instrumentAssign());
 
 // q5
+
+class Product {
+  constructor(name, price, quantity) {
+     this.name = name;
+     this.price = price;
+     this.quantity = quantity;
+  }
+  get totalValue() {
+     if (this.price > 0 && this.quantity > 0) {
+       return `The total price is ${this.price * this.quantity}\$`;
+     } else {
+       return `The total price is invalid`;
+     }
+  }
+  }
+  const product = new Product("apple", 122, 2);
+  console.log(product.totalValue());
+  const product1 = new Product("mango", 0, 0);
+  console.log(product1.totalValue());
+// q6
 class Student {
   constructor(name, age, grades) {
     this.name = name;
