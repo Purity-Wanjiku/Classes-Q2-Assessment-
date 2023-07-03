@@ -160,3 +160,85 @@ print(animal_one.track_predator())
 animal_two = Prey('Zebra', 'Grass', '8yrs', 7, ['Cheetah', 'Lion', 'Black Panther'])
 print(animal_two.track_prey())
 
+# 4. **African Music Festival:** You're in charge of organising a Pan-African music
+# festival. Many artists from different countries, each with their own musical style
+# and instruments are scheduled to perform. You need to write a program to
+# manage the festivar lineup, schedule, and stage arrangements. Think about how
+# you might model the `Artist`, `Performance`, and `Stage` classes, and consider
+# how you might use inheritance if there are different types of performances or
+# Stages.
+class Artist:
+  def __init__(self, name, country, specialization):
+    self.name = name
+    self.country = country
+    self.specialization = specialization
+
+class Performance:
+  def __init__(self, artist, startTime, endTime):
+    self.artist = artist
+    self.startTime = startTime
+    self.endTime = endTime
+
+class Stage:
+  def __init__(self, name, capacity):
+    self.name = name
+    self.capacity = capacity
+    self.performances = []
+
+  def add_performance(self, performance):
+    self.performances.append(performance)
+
+  def __str__(self):
+    stage_info = f"Stage: {self.name}\nCapacity: {self.capacity}\nPerformances:\n"
+    performance_info = "\n".join(f"Artist: {performance.artist.name}, Start Time: {performance.startTime}, End Time: {performance.endTime}" for performance in self.performances)
+    return stage_info + performance_info
+
+
+# 5. Create a class called Product with attributes for name, price, and quantity.
+# Implement a method to calculate the total varue of the product (price * quantity).
+# Create multiple objects of the Product class and calculate their total varues.
+class Product:
+    def __init__(self,name,price,quantity):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+    def total_value(self):
+        if self.price > 0 and self.quantity > 0:
+            return f"The total price is {self.price * self.quantity}$"
+        else:
+            return f"The total price is invalid"
+product = Product("apple",122,2)
+print(product.total_value())
+product1= Product("mango",0,0)
+print(product1.total_value())
+
+# 6. Implement a class called Student with attributes for name, age, and grades (a
+# list of integers). Include methods to calculate the average grade, display the
+# student information, and determine if the student has passed (average grade >=
+# 60). Create objects for the Student class and demonstrate the usage of these
+# Methods.
+
+class Student:
+   def __init__(self,name,age,grades):
+       self.name=name
+       self.age=age
+       self.grades=grades
+
+   def average_grade(self):
+       return sum(self.grades)/len(self.grades)
+
+   def details(self):
+       return f'The student is called {self.name} and is {self.age} and scored an {self.grades}'
+   def has_passed(self):
+       average=self.average_grade()
+       return average>=60
+   def has_failed(self):
+       averages=self.average_grade()
+       return averages<=60
+student=Student("Diana","24",[25,56,78,80])
+student2=Student("Diana","24",[25,96,78,90])
+student3=Student("Diana","24",[25,12,8,10])
+
+
+
+
