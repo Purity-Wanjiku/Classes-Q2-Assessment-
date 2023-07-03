@@ -256,6 +256,30 @@ console.log(stage.lineUp);
 console.log(stage.stageManagement());
 console.log(stage.instrumentAssign());
 
+// q5
+class Student {
+  constructor(name, age, grades) {
+    this.name = name;
+    this.age = age;
+    this.grades = grades;
+  }
+  get averageGrade() {
+    return this.grades.reduce((acc, grade) => acc + grade) / this.grades.length;
+  }
+  get details() {
+    return `The student is called ${this.name} and is ${this.age} and scored an ${this.grades}`;
+  }
+  get hasPassed() {
+    return this.averageGrade() >= 60;
+  }
+  get hasFailed() {
+    return this.averageGrade() <= 60;
+  }
+}
+const student = new Student("Diana", 24, [25, 56, 78, 80]);
+const student2 = new Student("Diana", 24, [25, 96, 78, 90]);
+const student3 = new Student("Diana", 24, [25, 12, 8, 10]);
+
 
 
  
