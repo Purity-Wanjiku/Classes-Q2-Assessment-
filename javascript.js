@@ -196,5 +196,66 @@ console.log(animalOne.track());
 const animalTwo = new Prey('Zebra', 'Grass', '8 years', 7, ['Cheetah', 'Lion', 'Black Panther']);
 console.log(animalTwo.track());
 
+// q4
+
+class MusicFestival {
+  constructor() {
+    this.artists = [];
+    this.genre = ['hiphop', 'reggae', 'R&B', 'acoustic'];
+    this.instruments = [];
+    this.lineUp = [];
+  }
+}
+class Stage extends MusicFestival {
+  constructor() {
+    super();
+    this.lights = 'white';
+    this.instrument = ['Drum', 'microphone'];
+  }
+  addToLineUp(musicType) {
+    if (this.genre.includes(musicType)) {
+      this.lineUp.push(musicType);
+    } else {
+      return 'This music type is not available';
+    }
+  }
+  stageManagement() {
+    if (this.genre == 'hip hop') {
+      this.lights = 'Blue lights';
+      return this.lights;
+    } else if (this.genre == 'reggae') {
+      this.lights = 'Green lights';
+      return this.lights;
+    } else if (this.genre == 'R&B') {
+      this.lights = 'Bright lights';
+      return this.lights;
+    } else {
+      return this.lights;
+    }
+  }
+  instrumentAssign() {
+    if (this.genre == 'hiphop') {
+      this.instrument.push('bass');
+      return this.instrument;
+    } else if (this.genre == 'R&B') {
+      this.instrument.push('saxophone');
+      return this.instrument;
+    } else if (this.genre == 'reggae') {
+      this.instrument.push('lead');
+      return this.instrument;
+    } else {
+      return this.instrument;
+    }
+  }
+}
+const festival = new MusicFestival();
+const stage = new Stage();
+stage.addToLineUp('hiphop');
+stage.addToLineUp('reggae');
+console.log(stage.lineUp);
+console.log(stage.stageManagement());
+console.log(stage.instrumentAssign());
+
+
 
  
